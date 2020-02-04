@@ -1,0 +1,39 @@
+entity GeoPoint {
+	latitude Long,
+    longitude Long
+}
+
+entity Geometry {
+	coordinates GeoPoint,
+    type String
+}
+
+entity Geofence {
+	fenceId Long,
+    fenceName String,
+    createdBy String,
+    createdTime Long,
+    modifiedBy String,
+    modifiedTime Long,
+    type Long,
+    fence Geometry,
+    fenceCode String
+}
+
+relationship OneToMany {
+	Geometry{coordinates} to GeoPoint
+	
+}
+
+relationship OneToOne {
+	Geofence{fence} to Geometry
+}
+
+
+
+
+// Set service options to all except few
+service all with serviceImpl except Geometry, GeoPoint
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
